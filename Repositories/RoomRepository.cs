@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Driver.Builders;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RoomMaze.Repositories
@@ -22,11 +23,9 @@ namespace RoomMaze.Repositories
             this._database = Connect();
             System.Console.WriteLine("repo constructor finished");
         }
-        public async Task<IEnumerable<Room>> AllRooms()
+        public async Task<List<Room>> AllRooms()
         {
-        	System.Console.WriteLine("all rooms hit");
-            var rooms = _database.GetCollection<Room>("rooms").Find(null);
-            
+            var rooms = _database.GetCollection<Room>("rooms").Find(new BsonDocument());
             return await rooms.ToListAsync();
         }
 
@@ -52,7 +51,9 @@ namespace RoomMaze.Repositories
         
         private IMongoDatabase Connect()
         {
+
             var client = new MongoClient(_settings.Options.MongoConnection);
+
             var database = client.GetDatabase(_settings.Options.Database);
             System.Console.WriteLine(_settings.Options.Database);
             return database;

@@ -3,6 +3,7 @@ using RoomMaze.Repositories;
 using RoomMaze.Models;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RoomMaze.Controllers
@@ -14,23 +15,19 @@ namespace RoomMaze.Controllers
         public RoomController(IRoomRepository roomRepository)
         {
            
-        	System.Console.WriteLine("hit constructor room all");
+
 
             this._roomRepository = roomRepository;
         }
        
         [HttpGet]
-        public Room GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            System.Console.WriteLine("hit get all");
 
-            var room = new Room
-            {
-                Description = "hi"
 
-            };
-    	    return room;
-            //return new ContentResult(_roomRepository.AllRooms());
+            var rooms = await _roomRepository.AllRooms();
+    	    System.Console.WriteLine("???");
+            return new ObjectResult(rooms);
         }
     }
 }

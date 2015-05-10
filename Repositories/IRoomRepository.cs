@@ -8,7 +8,7 @@ namespace RoomMaze.Repositories
 {  
     public interface IRoomRepository
     {
-        Task<IEnumerable<Room>> AllRooms();  
+        Task<List<Room>> AllRooms();  
         Room GetById(ObjectId id);
         void Add(Room Room);
         void Update(Room room);
