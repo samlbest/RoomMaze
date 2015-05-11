@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using MongoDB.Driver;
 using MongoDB.Bson;
-using MongoDB.Driver.Builders;
+
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +16,7 @@ namespace RoomMaze.Repositories
     {
         private readonly IOptions<Settings> _settings;
         private readonly IMongoDatabase _database;
+        private const string RoomCollectionName = "rooms";
 
         public RoomRepository(IOptions<Settings> settings)
         {
@@ -25,18 +26,29 @@ namespace RoomMaze.Repositories
         }
         public async Task<List<Room>> AllRooms()
         {
-            var rooms = _database.GetCollection<Room>("rooms").Find(new BsonDocument());
+            var rooms = _database.GetCollection<Room>(RoomCollectionName).Find(new BsonDocument());
             return await rooms.ToListAsync();
         }
 
-        public Room GetById(ObjectId id)
+        public async Task<Room> GetById(ObjectId id)
         {
-            throw new NotImplementedException();
+            var room = await _database.GetCollection<Room>(RoomCollectionName)
+                                      .Find(x => x.Id == id)
+                                      .FirstOrDefaultAsync();
+                                      
+            return room;
         }
     
-        public void Add(Room Room)
+        public async Task<ObjectId> Add(Room room)
         {
-            throw new NotImplementedException();
+            if (room == null)
+            {
+                throw new ArgumentNullException("room");
+            }
+            
+            await _database.GetCollection<Room>(RoomCollectionName).InsertOneAsync(room);
+            
+            return room.Id;
         }
     
         public void Update(Room room)

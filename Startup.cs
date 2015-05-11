@@ -2,6 +2,7 @@ using Microsoft.AspNet.Builder;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using RoomMaze.Repositories;
+using RoomMaze.Services;
 
 namespace RoomMaze
 {
@@ -21,7 +22,8 @@ namespace RoomMaze
         {
             services.AddMvc();
             services.Configure<Settings>(Configuration);
-            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddSingleton<IRoomRepository, RoomRepository>();            
+            services.AddScoped<IRoomService, RoomService>();
         }
 
         public void Configure(IApplicationBuilder app)

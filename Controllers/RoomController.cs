@@ -1,6 +1,10 @@
 using Microsoft.AspNet.Mvc;
-using RoomMaze.Repositories;
+using RoomMaze.Services;
 using RoomMaze.Models;
+using System.Net;
+
+using MongoDB.Driver;
+using MongoDB.Bson;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
@@ -11,23 +15,45 @@ namespace RoomMaze.Controllers
     [Route("api/[controller]")]
     public class RoomController : Controller
     {
-        private readonly IRoomRepository _roomRepository;
-        public RoomController(IRoomRepository roomRepository)
+        private readonly IRoomService _roomService;
+        public RoomController(IRoomService roomService)
         {
-           
-
-
-            this._roomRepository = roomRepository;
+            this._roomService = roomService;
         }
        
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-
-
-            var rooms = await _roomRepository.AllRooms();
-    	    System.Console.WriteLine("???");
+            var rooms = await _roomService.GetAllRooms();
             return new ObjectResult(rooms);
+        }
+        [HttpGet]
+        [Route("{id}", Name = "GetRoomById")]
+        public async Task<ActionResult> GetRoomById(string id)
+        {
+            return new ObjectResult(await _roomService.GetById(new ObjectId(id)));
+        }
+        
+        [HttpPost]
+        public async void AddRoom([FromBody] AddRoomRequest model)
+        {
+			System.Console.WriteLine("add room cont");
+            
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            }
+            
+            else
+            {
+                var roomId = await _roomService.AddRoom(model);
+                Response.StatusCode = (int)HttpStatusCode.Created;
+
+                Response.Headers["Location"] = string.Format("/api/rooms/{0}", roomId);
+                
+                Console.WriteLine(Response.Headers["Location"]);
+            }
+
         }
     }
 }

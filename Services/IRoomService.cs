@@ -4,14 +4,15 @@ using MongoDB.Bson;
 using RoomMaze.Models;
 using System.Threading.Tasks;
 
-namespace RoomMaze.Repositories
+namespace RoomMaze.Services
 {  
-    public interface IRoomRepository
+    public interface IRoomService
     {
-        Task<List<Room>> AllRooms();  
+        Task<List<Room>> GetAllRooms();  
+		
         Task<Room> GetById(ObjectId id);
-        Task<ObjectId> Add(Room Room);
-        void Update(Room room);
+        Task<ObjectId> AddRoom(AddRoomRequest model);
+
         bool Remove(ObjectId id);
     }
 }
