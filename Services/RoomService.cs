@@ -13,21 +13,36 @@ namespace RoomMaze.Services
         public class RoomService : IRoomService
 		{
 			private readonly IRoomRepository _roomRepository;
+			private readonly IRoomObjectRepository _roomObjectRepository;
 			
-			public RoomService(IRoomRepository roomRepository)
+			public RoomService(IRoomRepository roomRepository, IRoomObjectRepository roomObjectRepository)
 			{
 				this._roomRepository = roomRepository;
+				this._roomObjectRepository = roomObjectRepository;
 			}
 			
-			public Task<List<Room>> GetAllRooms()
+			public async Task<List<Room>> GetAllRooms()
 			{
-				return _roomRepository.AllRooms();
+				var rooms = await _roomRepository.AllRooms();
+
+				System.Console.WriteLine("before");
+				foreach (var room in rooms)
+				{
+					room.RoomObjects = await _roomObjectRepository.ObjectsForRoom(room);
+ 				}
+ 				System.Console.WriteLine("after");
+// 				
+// 				rooms.ForEach(async x => {
+// 					x.RoomObjects = await _roomObjectRepository.ObjectsForRoom(x.Id);
+// 				});
+				System.Console.WriteLine(rooms);
+				return rooms;
 			}
 			
-	        public Task<Room> GetById(ObjectId id)
+	        public async Task<Room> GetById(ObjectId id)
 			{
 				System.Console.WriteLine("get by id serv");
-				return _roomRepository.GetById(id);	
+				return await _roomRepository.GetById(id);	
 			}
 			
 	        public async Task<ObjectId> AddRoom(AddRoomRequest model)
@@ -50,5 +65,6 @@ namespace RoomMaze.Services
 			{
 				return _roomRepository.Remove(id);
 			}
+			
 		}
 }

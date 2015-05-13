@@ -10,8 +10,7 @@
       "Microsoft.AspNet.Hosting >= 1.0.0-beta4",
       "Microsoft.AspNet.Diagnostics >= 1.0.0-beta4",
       "Microsoft.Framework.ConfigurationModel.Json >= 1.0.0-beta4",
-      "mongocsharpdriver >= 2.0.0",
-      "kmon >= 0.3.0"
+      "mongocsharpdriver >= 2.0.0"
     ],
     "DNX,Version=v4.5.1": []
   },
@@ -47,36 +46,6 @@
         "lib/dnx451/Kestrel.xml",
         "lib/dnxcore50/Kestrel.dll",
         "lib/dnxcore50/Kestrel.xml"
-      ]
-    },
-    "kmon/0.3.0": {
-      "serviceable": false,
-      "sha": "d52x9XD6oDKX77+y0/u6Xby3w1KXDke0xEJE8eC1InlmwTUXl5C3DCKFEzMIW8ZL3dAPUQO01U8tmj2T8I8Qsg==",
-      "frameworks": {
-        "DNX,Version=v4.5.1": {
-          "dependencies": {},
-          "frameworkAssemblies": [
-            "mscorlib",
-            "System",
-            "System.Core",
-            "Microsoft.CSharp"
-          ],
-          "runtimeAssemblies": [
-            "lib/aspnet50/kmon.dll"
-          ],
-          "compileAssemblies": [
-            "lib/aspnet50/kmon.dll"
-          ]
-        }
-      },
-      "files": [
-        "kmon.0.3.0.nupkg",
-        "kmon.0.3.0.nupkg.sha512",
-        "kmon.nuspec",
-        "lib/aspnet50/kmon.dll",
-        "lib/aspnet50/kmon.xml",
-        "lib/aspnetcore50/kmon.dll",
-        "lib/aspnetcore50/kmon.xml"
       ]
     },
     "Microsoft.AspNet.Authentication/1.0.0-beta4": {

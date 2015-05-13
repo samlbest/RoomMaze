@@ -9,8 +9,7 @@
     "Microsoft.AspNet.Hosting": "1.0.0-beta4",
     "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
     "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-    "mongocsharpdriver": "2.0.0",
-    "kmon": "0.3.0"
+    "mongocsharpdriver": "2.0.0"
   },
   "commands": {
     "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",

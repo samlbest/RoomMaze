@@ -22,7 +22,8 @@ namespace RoomMaze
         {
             services.AddMvc();
             services.Configure<Settings>(Configuration);
-            services.AddSingleton<IRoomRepository, RoomRepository>();            
+            services.AddSingleton<IRoomRepository, RoomRepository>();
+            services.AddSingleton<IRoomObjectRepository, RoomObjectRepository>();            
             services.AddScoped<IRoomService, RoomService>();
         }
 

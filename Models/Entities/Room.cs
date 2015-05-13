@@ -11,6 +11,7 @@ namespace RoomMaze.Models
 		{
 			this.Objects = new List<ObjectId>().ToArray();
 			this.Children = new List<ObjectId>().ToArray();
+			this.RoomObjects = new List<RoomObject>();
 		}
 		
 		public ObjectId Id { get; set; }
@@ -30,6 +31,8 @@ namespace RoomMaze.Models
 		[BsonElement("objects")]
 		public ObjectId[] Objects { get; set; }
 		
+		[BsonIgnoreAttribute]
+		public List<RoomObject> RoomObjects { get; set; }
 
 	}
 }

@@ -14,5 +14,6 @@ namespace RoomMaze.Services
         Task<ObjectId> AddRoom(AddRoomRequest model);
 
         bool Remove(ObjectId id);
+        
     }
 }
