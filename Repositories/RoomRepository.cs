@@ -40,6 +40,30 @@ namespace RoomMaze.Repositories
             
             await base.Database.GetCollection<Room>(Constants.RoomCollectionName).InsertOneAsync(room);
             
+            if (room.Parent != null)
+            {
+                
+                var parent = await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
+                                .Find(x => x.Id == room.Parent.Value)
+                                .FirstOrDefaultAsync();
+                if (parent == null)
+                {
+                    // Roll back insert
+                    await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
+                        .DeleteOneAsync(x => x.Id == room.Id);
+                    throw new Exception("ParentId invalid");
+                }
+                
+                var children = parent.Children.ToList();
+                
+                children.Add(room.Id);
+                parent.Children = children.Distinct().ToArray();
+                
+                await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
+                                   .ReplaceOneAsync(x => x.Id == parent.Id, parent);
+            }
+
+            
             return room.Id;
         }
     
