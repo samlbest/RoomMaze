@@ -42,7 +42,10 @@ namespace RoomMaze.Repositories
         }
         public async Task<RoomObject> GetById(ObjectId id)
         {
-            throw new NotImplementedException();
+            return await base.Database.GetCollection<RoomObject>(Constants.RoomObjectCollectionName)
+                                      .Find(x => x.Id == id)
+                                      .FirstOrDefaultAsync();
+                                      
         }
         public async Task<ObjectId> Add(RoomObject roomObject)
         {

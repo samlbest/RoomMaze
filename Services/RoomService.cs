@@ -88,7 +88,20 @@ namespace RoomMaze.Services
 				
 				return id;
 			}
-	
+	        public async void AddObjectToRoom(ObjectId roomId, ObjectId objectId)
+			{
+				var room = await _roomRepository.GetById(roomId);
+				var roomObj = await _roomObjectRepository.GetById(objectId);
+				
+				if (room != null && roomObj != null)
+				{
+					var objectIds = room.ObjectIds.ToList();
+					objectIds.Add(roomObj.Id);
+					room.ObjectIds = objectIds.Distinct().ToArray();
+					_roomRepository.Update(room);
+				}
+			}
+			
 	        public bool Remove(ObjectId id)
 			{
 				return _roomRepository.Remove(id);

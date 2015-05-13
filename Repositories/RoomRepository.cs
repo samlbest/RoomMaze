@@ -74,9 +74,10 @@ namespace RoomMaze.Repositories
             return room.Id;
         }
     
-        public void Update(Room room)
+        public async void Update(Room room)
         {
-            throw new NotImplementedException();
+            await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
+                               .ReplaceOneAsync(x => x.Id == room.Id, room);
         }
     
         public bool Remove(ObjectId id)

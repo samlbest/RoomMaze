@@ -35,6 +35,15 @@ namespace RoomMaze.Controllers
             return new ObjectResult(await _roomService.GetById(new ObjectId(id)));
         }
         
+        [HttpPut]
+        [Route("{roomId}/object/{objectId}", Name = "AddObjectToRoom")]
+        public async Task<ActionResult> AddObjectToRoom(string roomId, string objectId)
+        {
+
+            _roomService.AddObjectToRoom(new ObjectId(roomId), new ObjectId(objectId));
+            return new HttpStatusCodeResult((int)HttpStatusCode.OK);
+        }
+        
         [HttpPost]
         public async Task<ActionResult> AddRoom([FromBody] AddRoomRequest model)
         {
