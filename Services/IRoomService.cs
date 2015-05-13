@@ -8,11 +8,14 @@ namespace RoomMaze.Services
 {  
     public interface IRoomService
     {
-        Task<List<Room>> GetAllRooms();  
+        Task<List<Room>> GetAllRooms(); 
+        Task<List<RoomObject>> GetAllRoomObjects();  
 		
         Task<Room> GetById(ObjectId id);
         
         Task<ObjectId> AddRoom(AddRoomRequest model);
+        
+        Task<ObjectId> AddRoomObject(AddRoomObjectRequest model);
 
         bool Remove(ObjectId id);
         

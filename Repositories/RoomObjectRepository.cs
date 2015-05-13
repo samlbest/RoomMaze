@@ -44,9 +44,16 @@ namespace RoomMaze.Repositories
         {
             throw new NotImplementedException();
         }
-        public async Task<ObjectId> Add(RoomObject roomObject, ObjectId roomId)
+        public async Task<ObjectId> Add(RoomObject roomObject)
         {
-            throw new NotImplementedException();
+            if (roomObject == null)
+            {
+                throw new ArgumentNullException("roomObject");
+            }
+            
+            await base.Database.GetCollection<RoomObject>(Constants.RoomObjectCollectionName).InsertOneAsync(roomObject);
+            
+            return roomObject.Id;
         }
         public void Update(RoomObject roomObject)
         {

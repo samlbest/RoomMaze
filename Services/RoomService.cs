@@ -20,6 +20,10 @@ namespace RoomMaze.Services
 				this._roomRepository = roomRepository;
 				this._roomObjectRepository = roomObjectRepository;
 			}
+			public async Task<List<RoomObject>> GetAllRoomObjects()
+			{
+				return await _roomObjectRepository.AllRoomObjects();
+			}
 			
 			public async Task<List<Room>> GetAllRooms()
 			{
@@ -62,11 +66,25 @@ namespace RoomMaze.Services
 				{
 					Name = model.name,
 					Description = model.description,
-					ParentId = new ObjectId(model.parent_id)
+					ParentId = model.parent_id != null ? new Nullable<ObjectId>(new ObjectId(model.parent_id)) : null
 				};
 				
 				
 				var id = await _roomRepository.Add(room);
+				
+				return id;
+			}
+			
+	        public async Task<ObjectId> AddRoomObject(AddRoomObjectRequest model)
+			{
+				var roomObject = new RoomObject
+				{
+					Name = model.name,
+					Description = model.description,
+				};
+				
+				
+				var id = await _roomObjectRepository.Add(roomObject);
 				
 				return id;
 			}
