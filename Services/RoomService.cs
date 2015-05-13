@@ -29,6 +29,16 @@ namespace RoomMaze.Services
 				foreach (var room in rooms)
 				{
 					room.RoomObjects = await _roomObjectRepository.ObjectsForRoom(room);
+					
+					if (room.ChildrenIds != null && room.ChildrenIds.Length > 0)
+					{
+						room.Children = await _roomRepository.GetByIds(room.ChildrenIds.ToList());
+					}
+					
+					if (room.ParentId.HasValue)
+					{
+						room.Parent = await _roomRepository.GetById(room.ParentId.Value);
+					}
  				}
  				System.Console.WriteLine("after");
 // 				
@@ -52,7 +62,7 @@ namespace RoomMaze.Services
 				{
 					Name = model.name,
 					Description = model.description,
-					Parent = new ObjectId(model.parent_id)
+					ParentId = new ObjectId(model.parent_id)
 				};
 				
 				

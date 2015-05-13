@@ -26,12 +26,12 @@ namespace RoomMaze.Repositories
         public async Task<List<RoomObject>> ObjectsForRoom(Room room)
         {
                                  
-            if (room == null || room.Objects == null  || room.Objects.Length == 0)
+            if (room == null || room.ObjectIds == null  || room.ObjectIds.Length == 0)
             {
                 return new List<RoomObject>();
             }
             
-            var roomObjectIds = room.Objects.ToList();
+            var roomObjectIds = room.ObjectIds.ToList();
             
             var roomObjects = await base.Database
                                         .GetCollection<RoomObject>(Constants.RoomObjectCollectionName)

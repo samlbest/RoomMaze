@@ -31,6 +31,13 @@ namespace RoomMaze.Repositories
             return room;
         }
     
+        public async Task<List<Room>> GetByIds(List<ObjectId> ids)
+        {
+            var objs = base.Database.GetCollection<Room>(Constants.RoomCollectionName)
+                                      .Find(x => ids.Contains(x.Id));
+            return await objs.ToListAsync();
+        }
+        
         public async Task<ObjectId> Add(Room room)
         {
             if (room == null)
@@ -40,11 +47,11 @@ namespace RoomMaze.Repositories
             
             await base.Database.GetCollection<Room>(Constants.RoomCollectionName).InsertOneAsync(room);
             
-            if (room.Parent != null)
+            if (room.ParentId != null)
             {
                 
                 var parent = await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
-                                .Find(x => x.Id == room.Parent.Value)
+                                .Find(x => x.Id == room.ParentId.Value)
                                 .FirstOrDefaultAsync();
                 if (parent == null)
                 {
@@ -54,10 +61,10 @@ namespace RoomMaze.Repositories
                     throw new Exception("ParentId invalid");
                 }
                 
-                var children = parent.Children.ToList();
+                var children = parent.ChildrenIds.ToList();
                 
                 children.Add(room.Id);
-                parent.Children = children.Distinct().ToArray();
+                parent.ChildrenIds = children.Distinct().ToArray();
                 
                 await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
                                    .ReplaceOneAsync(x => x.Id == parent.Id, parent);

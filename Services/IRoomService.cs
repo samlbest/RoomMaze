@@ -11,6 +11,7 @@ namespace RoomMaze.Services
         Task<List<Room>> GetAllRooms();  
 		
         Task<Room> GetById(ObjectId id);
+        
         Task<ObjectId> AddRoom(AddRoomRequest model);
 
         bool Remove(ObjectId id);

@@ -10,6 +10,7 @@ namespace RoomMaze.Repositories
     {
         Task<List<Room>> AllRooms();  
         Task<Room> GetById(ObjectId id);
+        Task<List<Room>> GetByIds(List<ObjectId> ids);
         Task<ObjectId> Add(Room Room);
         void Update(Room room);
         bool Remove(ObjectId id);

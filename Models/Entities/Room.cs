@@ -9,8 +9,8 @@ namespace RoomMaze.Models
 	{
 		public Room()
 		{
-			this.Objects = new List<ObjectId>().ToArray();
-			this.Children = new List<ObjectId>().ToArray();
+			this.ObjectIds = new List<ObjectId>().ToArray();
+			this.ChildrenIds = new List<ObjectId>().ToArray();
 			this.RoomObjects = new List<RoomObject>();
 		}
 		
@@ -23,16 +23,22 @@ namespace RoomMaze.Models
 	    public string Description { get; set; }
 		
 		[BsonElement("parent")]
-		public Nullable<ObjectId> Parent { get; set; }
+		public Nullable<ObjectId> ParentId { get; set; }
 		
 		[BsonElement("children")]
-		public ObjectId[] Children { get; set; }
+		public ObjectId[] ChildrenIds { get; set; }
 		
 		[BsonElement("objects")]
-		public ObjectId[] Objects { get; set; }
+		public ObjectId[] ObjectIds { get; set; }
 		
 		[BsonIgnoreAttribute]
 		public List<RoomObject> RoomObjects { get; set; }
+		
+		[BsonIgnoreAttribute]
+		public List<Room> Children { get; set; }
+		
+		[BsonIgnoreAttribute]
+		public Room Parent { get; set; }
 
 	}
 }
