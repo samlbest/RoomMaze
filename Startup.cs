@@ -1,6 +1,7 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
+using Microsoft.AspNet.StaticFiles;
 using RoomMaze.Repositories;
 using RoomMaze.Services;
 
@@ -30,7 +31,8 @@ namespace RoomMaze
         public void Configure(IApplicationBuilder app)
         {
             app.UseMvc();
-            app.UseWelcomePage();
+            app.UseStaticFiles();
+
         }
     }
     
