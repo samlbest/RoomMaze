@@ -12,15 +12,21 @@ using System.Threading.Tasks;
 
 namespace RoomMaze.Controllers
 {
-    [Route("")]
+    [Route("Template")]
     public class TemplateController : Controller
     {
 
         [HttpGet]
+        [Route("~/")]
         public IActionResult Index()
         {
-            System.Console.WriteLine("hi");
             return View("Index");
+        }
+        
+        [Route("Room")]
+        public IActionResult Room()
+        {
+            return View("Room");
         }
         
     }

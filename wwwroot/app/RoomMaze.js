@@ -1,13 +1,16 @@
-var phonecatApp = angular.module('RoomMaze', [
-  'ngRoute',
-  'RoomMazeControllers'
-]);
+var RoomMaze = angular.module('RoomMaze', ['ngRoute']);
 
-var RoomMazeControllers = angular.module('RoomMazeControllers', []);
+RoomMaze.controller('RoomCtrl', RoomCtrl);
+RoomMaze.controller('HomeCtrl', HomeCtrl);
 
-RoomMazeControllers.controller('HomeCtrl', ['$scope',
-  function ($scope) {
-    $scope.models = {
-      test: 'Sam'
-    };
-}]);
+var configFunction = function ($routeProvider) {
+    $routeProvider
+        .when('/room', {
+            templateUrl: '/Template/Room',
+            controller: RoomCtrl
+        });
+}
+
+configFunction.$inject = ['$routeProvider'];
+
+RoomMaze.config(configFunction);

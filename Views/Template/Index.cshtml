@@ -3,9 +3,13 @@
 <head>
 	<script src="/lib/angular/angular.js"></script>
 	<script src="/lib/angular-route/angular-route.js"></script>
+	<script src="/app/Controllers/RoomCtrl.js"></script>
+	<script src="/app/Controllers/HomeCtrl.js"></script>
 	<script src="/app/RoomMaze.js"></script>
 </head>
 <body ng-controller="HomeCtrl">
-	<p>{{models.test}}</p>
+	<a href="/#/room">Enter the Room Maze</a>
+	<div ng-view>
+	</div>
 </body>
 </html>
