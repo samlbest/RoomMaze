@@ -34,6 +34,6 @@
   ],
   "scripts": {
     "postrestore": [ "npm install", "bower install" ],
-    "prepare": [ "gulp bower" ]
+    "prepare": [ "gulp bower", "gulp bundle" ]
   }
 }
