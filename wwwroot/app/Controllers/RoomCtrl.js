@@ -1,7 +1,14 @@
-var RoomCtrl = function($scope) {
+var RoomCtrl = function($scope, $http) {
 	$scope.models = {
-		me: 'hi'
+		room: {}
 	};
+	
+	var url = baseApiUrl + "/room/root";
+	
+	$http.get(url).
+		success(function(data, status, headers, config) {
+			$scope.models.room = data;
+		});
 };
 
-RoomCtrl.$inject = ['$scope']
+RoomCtrl.$inject = ['$scope', '$http'];

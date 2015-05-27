@@ -25,6 +25,14 @@ namespace RoomMaze.Services
 				return await _roomObjectRepository.AllRoomObjects();
 			}
 			
+			public async Task<Room> GetRootRoom()
+			{
+				var room = await _roomRepository.FindRooms(x => x.ParentId == null);
+				return room.FirstOrDefault();
+			}
+			
+			//private void PopulateRooms()
+			
 			public async Task<List<Room>> GetAllRooms()
 			{
 				var rooms = await _roomRepository.AllRooms();

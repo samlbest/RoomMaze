@@ -29,6 +29,14 @@ namespace RoomMaze.Controllers
         }
         
         [HttpGet]
+        [RouteAttribute("root")]
+        public async Task<ActionResult> GetRootRoom()
+        {
+            System.Console.WriteLine("root room");
+            return new ObjectResult(await _roomService.GetRootRoom());
+        }
+        
+        [HttpGet]
         [Route("{id}", Name = "GetRoomById")]
         public async Task<ActionResult> GetRoomById(string id)
         {

@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using RoomMaze.Helpers;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RoomMaze.Repositories
@@ -29,6 +30,15 @@ namespace RoomMaze.Repositories
                                       .FirstOrDefaultAsync();
                                       
             return room;
+        }
+        
+        public async Task<List<Room>> FindRooms(Expression<Func<Room, bool>> expression)
+        {
+            var rooms = await base.Database.GetCollection<Room>(Constants.RoomCollectionName)
+                                    .Find(expression)
+                                    .ToListAsync();
+                                    
+            return rooms;
         }
     
         public async Task<List<Room>> GetByIds(List<ObjectId> ids)

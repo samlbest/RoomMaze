@@ -5,13 +5,23 @@ var HomeCtrl = function ($scope) {
 }
 
 HomeCtrl.$inject = ['$scope'];
-var RoomCtrl = function($scope) {
+var RoomCtrl = function($scope, $http) {
 	$scope.models = {
-		me: 'hi'
+		room: {}
 	};
+	
+	var url = baseApiUrl + "/room/root";
+	
+	$http.get(url).
+		success(function(data, status, headers, config) {
+			debugger;
+			$scope.models.room = data;
+		});
 };
 
-RoomCtrl.$inject = ['$scope']
+RoomCtrl.$inject = ['$scope', '$http'];
+var baseApiUrl = "http://localhost:5001/api"
+
 var RoomMaze = angular.module('RoomMaze', ['ngRoute']);
 
 RoomMaze.controller('RoomCtrl', RoomCtrl);

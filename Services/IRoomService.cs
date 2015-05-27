@@ -9,6 +9,8 @@ namespace RoomMaze.Services
     public interface IRoomService
     {
         Task<List<Room>> GetAllRooms(); 
+        
+        Task<Room> GetRootRoom();
         Task<List<RoomObject>> GetAllRoomObjects();  
 		
         Task<Room> GetById(ObjectId id);

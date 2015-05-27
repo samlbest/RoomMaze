@@ -1,3 +1,5 @@
+var baseApiUrl = "http://localhost:5001/api"
+
 var RoomMaze = angular.module('RoomMaze', ['ngRoute']);
 
 RoomMaze.controller('RoomCtrl', RoomCtrl);
